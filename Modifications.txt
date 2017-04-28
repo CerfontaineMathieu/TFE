@@ -1,0 +1,5 @@
+Ajouter un chapitre sous GIT.
+Fortigate : parler d'IPSec, SSL Web portal, Shaper, LDAP.
+Ajouter explication tests 802.1x sur le switch.
+Conclusion technique -> + récommandations pour travail future (interface web, déploiement d'OS et de VM).
+Parler des modifications apportées dans YASC.
