@@ -1,0 +1,104 @@
+config firewall address
+    edit "all"
+    next
+    edit "s.lan"
+        set color 24
+        set subnet [NetLan] [NetLanMask]
+    next
+    edit "s.wifi.guest"
+        set color 24
+        set subnet [NetWifiGuest] 255.255.255.192
+    next
+    edit "s.sslvpn"
+        set color 24
+        set subnet [NetWifiGuest] [NetWifiGuestMask]
+    next
+    edit "s.mgmt"
+        set color 24
+        set subnet [NetMgmt] [NetMgmtMask]
+    next
+    edit "s.lpl"
+        set color 24
+        set subnet 10.76.1.0 255.255.255.0
+    next
+    edit "s.ares"
+        set color 24
+        set subnet 10.76.1.230 255.255.255.255
+    next
+    edit "s.minus"
+        set color 24
+        set subnet 10.76.1.24 255.255.255.255
+    next
+    edit "s.lplhosting"
+        set color 24
+        set subnet [NetLGC] [NetLGCMask]
+    next
+    edit "s.smtp01"
+        set color 24
+        set subnet [NetLan8] [NetLanMask]
+    next
+    edit "s.srv001"
+        set color 24
+        set subnet [NetLan10] [NetLanMask]
+    next
+    edit "s.rudder"
+        set color 24
+        set subnet 10.76.1.190 255.255.255.255
+    next
+    edit "s.srv002"
+        set color 24
+        set subnet [NetLan11] [NetLanMask]
+    next
+    edit "s.srv003"
+        set color 24
+        set subnet [NetLan12] [NetLanMask]
+    next
+    edit "s.srv004"
+        set color 24
+        set subnet [NetLan13] [NetLanMask]
+    next
+    edit "s.srv005"
+        set color 24
+        set subnet [NetLan14] [NetLanMask]
+    next
+    edit "s.srv006"
+        set color 24
+        set subnet [NetLan15] [NetLanMask]
+    next
+    edit "s.srvp01"
+        set color 24
+        set subnet [NetMgmt1] [NetMgmtMask]
+    next
+    edit "s.voice"
+        set color 24
+        set subnet [NetVoice] [NetVoiceMask]
+    next
+    edit "s.lgc.grabuge"
+        set subnet 10.75.3.104 255.255.255.255
+    next
+    edit "ovh.net"
+        set type fqdn
+        set fqdn "ovh.net"
+    next
+    edit "s.srv007"
+        set color 24
+        set subnet [NetLan16] [NetLanMask]
+    next
+    edit "shadowProtect_Activation"
+        set subnet 198.135.233.13 255.255.255.255
+    next
+end
+config firewall addrgrp
+    edit "s.lan.servers"
+        set member "s.smtp01" "s.srv001" "s.srv002" "s.srv003" "s.srv004" "s.srv005" "s.srv006" "s.srv007"
+        set color 24
+    next
+    edit "s.lan.infraservers"
+        set member "s.smtp01" "s.srv001" "s.srv002" "s.srv003"
+        set color 24
+    next
+    edit "v.LGC"
+        set member "s.lpl" "s.lplhosting"
+        set color 24
+    next
+end

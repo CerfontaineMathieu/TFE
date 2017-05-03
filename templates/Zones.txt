@@ -1,0 +1,29 @@
+config system zone
+    edit "s.11.lan"
+        set intrazone allow
+        set interface "internal1"
+    next
+    edit "s.22.mgt"
+        set interface "internal2"
+    next
+    edit "s.33.rem"
+    next
+    edit "s.44.vox"
+        set interface "internal4"
+    next
+    edit "s.66.dmz"
+        set intrazone allow
+        set interface "internal14"
+    next
+    edit "s.77.pub"
+    next
+    edit "s.99.unused"
+        set interface "internal11" "internal3" "internal5" "internal6" "internal7" "internal8" "internal9" "internal10" "internal12" "internal13"
+    next
+    edit "s.88.wan"
+        set interface "wan1" "wan2"
+    next
+    edit "s.55.lgc"
+        set interface "s.vpn2.lgc" "s.vpn1.lgc"
+    next
+end

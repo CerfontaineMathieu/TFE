@@ -1,0 +1,49 @@
+config firewall service custom
+    edit "s.hyperfile"
+        set color 24
+        set tcp-portrange 4950:1024-65535
+    next
+    edit "s.teamviewer"
+        set color 24
+        set tcp-portrange 5938:1024-65535
+        set udp-portrange 5938:1024-65535
+    next
+    edit "RDP.Derichs"
+        set category "Remote Access"
+        set tcp-portrange 42000
+    next
+    edit "s.grabuge.veeam"
+        set category "File Access"
+        set tcp-portrange 2500-5000 6160-6165 445
+        set udp-portrange 2500-5000 6160-6165
+    next
+    edit "http.userlock"
+        set tcp-portrange 81:1024-65535
+    next
+    edit "pyzor"
+        set category "Email"
+        set udp-portrange 24441
+    next
+    edit "Shadow_Protect_Activation"
+        set category "Web Access"
+        set tcp-portrange 8282
+    next
+end
+config firewall service group
+    edit "Email Access"
+        set member "DNS" "IMAP" "IMAPS" "POP3" "POP3S" "SMTP" "SMTPS"
+    next
+    edit "Web Access"
+        set member "DNS" "HTTP" "HTTPS"
+    next
+    edit "Windows AD"
+        set member "DCE-RPC" "DNS" "KERBEROS" "LDAP" "LDAP_UDP" "SAMBA" "SMB"
+    next
+    edit "Exchange Server"
+        set member "DCE-RPC" "DNS" "HTTPS"
+    next
+    edit "s.basesurf"
+        set member "DNS" "HTTP" "HTTPS" "FTP" "NTP" "ALL_ICMP" "s.teamviewer" "RDP"
+        set color 24
+    next
+end

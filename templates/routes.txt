@@ -1,0 +1,18 @@
+config router static
+    edit 55030
+        set dst [NetLGC] [NetLGCMask]
+        set device "s.vpn2.lgc"
+    next
+    edit 55040
+        set dst 10.76.1.0 255.255.255.0
+        set device "s.vpn2.lgc"
+    next
+    edit 55010
+        set dst [NetLGC] [NetLGCMask]
+        set device "s.vpn1.lgc"
+    next
+    edit 55020
+        set dst 10.76.1.0 255.255.255.0
+        set device "s.vpn1.lgc"
+    next
+end

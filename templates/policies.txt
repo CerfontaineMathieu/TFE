@@ -1,0 +1,256 @@
+config firewall policy
+    edit 11220010
+        set srcintf "s.11.lan"
+        set dstintf "s.22.mgt"
+        set srcaddr "s.lan"
+        set dstaddr "s.mgmt"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "servers to management"
+    next
+    edit 11550010
+        set srcintf "s.11.lan"
+        set dstintf "s.55.lgc"
+        set srcaddr "s.lan"
+        set dstaddr "s.lplhosting" "s.minus" "s.rudder"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "lan to lpl-hosting, zabbix and rudder"
+        set traffic-shaper "s.high.limited"
+        set traffic-shaper-reverse "s.high.limited"
+    next
+    edit 11550020
+        set name "Lime"
+        set srcintf "s.11.lan"
+        set dstintf "s.55.lgc"
+        set srcaddr "s.lan.infraservers"
+        set dstaddr "s.ares" "s.lgc.grabuge"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "only infra servers can reach ares"
+        set traffic-shaper "s.low"
+        set traffic-shaper-reverse "s.low"
+    next
+    edit 55110010
+        set srcintf "s.55.lgc"
+        set dstintf "s.11.lan"
+        set srcaddr "s.lpl" "s.lplhosting"
+        set dstaddr "s.lan"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "lpl and lpl-hosting to lan"
+        set traffic-shaper "s.high.limited"
+        set traffic-shaper-reverse "s.high.limited"
+    next
+    edit 55220010
+        set srcintf "s.55.lgc"
+        set dstintf "s.22.mgt"
+        set srcaddr "s.lpl" "s.lplhosting"
+        set dstaddr "s.mgmt"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "lpl and lpl-hosting to management"
+        set traffic-shaper "s.high.limited"
+        set traffic-shaper-reverse "s.high.limited"
+    next
+    edit 22110010
+        set srcintf "s.22.mgt"
+        set dstintf "s.11.lan"
+        set srcaddr "s.mgmt"
+        set dstaddr "s.lan"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "allow management to reach lan"
+    next
+    edit 59
+        set name "pyzor"
+        set srcintf "s.11.lan"
+        set dstintf "virtual-wan-link"
+        set srcaddr "s.smtp01"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "pyzor"
+        set nat enable
+    next
+    edit 48
+        set name "SMTP surf to wan"
+        set srcintf "s.11.lan"
+        set dstintf "virtual-wan-link"
+        set srcaddr "s.smtp01"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "s.basesurf"
+        set utm-status enable
+        set traffic-shaper "s.high"
+        set traffic-shaper-reverse "s.high"
+        set nat enable
+    next
+    edit 11880010
+        set name "infra server SMTP to wan"
+        set srcintf "s.11.lan"
+        set dstintf "virtual-wan-link"
+        set srcaddr "s.lan.infraservers"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "SMTP"
+        set utm-status enable
+        set comments "infra servers can send mail"
+        set traffic-shaper "s.low"
+        set traffic-shaper-reverse "s.low"
+        set nat enable
+    next
+    edit 64
+        set name "ShadowProtect_Activation"
+        set srcintf "s.11.lan"
+        set dstintf "virtual-wan-link"
+        set srcaddr "s.lan"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "Shadow_Protect_Activation"
+        set nat enable
+    next
+    edit 11880020
+        set name "lan2wan users"
+        set srcintf "s.11.lan"
+        set dstintf "virtual-wan-link"
+        set srcaddr "s.lan"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "s.basesurf"
+        set utm-status enable
+        set comments "basic surf rule"
+        set traffic-shaper "s.medium"
+        set traffic-shaper-reverse "s.medium"
+        set nat enable
+    next
+    edit 11440010
+        set name "Lan to Voice"
+        set srcintf "s.11.lan"
+        set dstintf "s.44.vox"
+        set srcaddr "s.lan"
+        set dstaddr "s.voice" "s.voice"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "lan to pbx"
+    next
+    edit 22550010
+        set srcintf "s.22.mgt"
+        set dstintf "s.55.lgc"
+        set srcaddr "s.mgmt"
+        set dstaddr "s.lplhosting" "s.minus"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "management to lpl-hosting and zabbix"
+        set traffic-shaper "s.high.limited"
+        set traffic-shaper-reverse "s.high.limited"
+    next
+    edit 77880010
+        set srcintf "s.77.pub"
+        set dstintf "virtual-wan-link"
+        set srcaddr "s.wifi.guest"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "s.basesurf"
+        set comments "basic surf rule"
+        set traffic-shaper "s.low.limited"
+        set traffic-shaper-reverse "s.low.limited"
+        set nat enable
+    next
+    edit 33110010
+        set srcintf "ssl.root"
+        set dstintf "s.11.lan"
+        set srcaddr "s.sslvpn"
+        set dstaddr "s.lan"
+        set action accept
+        set schedule "always"
+        set service "DNS" "RDP"
+        set groups "s.vpnusers"
+        set comments "ssl clients to lan"
+        set traffic-shaper "s.high"
+        set traffic-shaper-reverse "s.high"
+    next
+    edit 1133010
+        set srcintf "s.11.lan"
+        set dstintf "ssl.root"
+        set srcaddr "s.lan"
+        set dstaddr "s.sslvpn"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set comments "lan to ssl clients"
+        set traffic-shaper "s.medium"
+        set traffic-shaper-reverse "s.medium"
+    next
+    edit 33110020
+        set srcintf "ssl.root"
+        set dstintf "s.11.lan"
+        set srcaddr "s.sslvpn"
+        set dstaddr "s.lan"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set groups "s.vpnusers"
+        set comments "ssl clients to lan"
+        set traffic-shaper "s.medium"
+        set traffic-shaper-reverse "s.medium"
+    next
+    edit 45
+        set name "mgmt 2 wan surf"
+        set srcintf "s.22.mgt"
+        set dstintf "virtual-wan-link"
+        set srcaddr "s.mgmt"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "s.basesurf"
+        set utm-status enable
+        set av-profile "default"
+        set profile-protocol-options "default"
+        set nat enable
+    next
+    edit 49
+        set srcintf "virtual-wan-link"
+        set dstintf "s.11.lan"
+        set srcaddr "all"
+        set dstaddr "s.nod32"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set traffic-shaper "s.low"
+        set traffic-shaper-reverse "s.low"
+    next
+    edit 20167
+        set name "Wan 2 lan OWA"
+        set srcintf "virtual-wan-link"
+        set dstintf "s.11.lan"
+        set srcaddr "all"
+        set dstaddr "vip.OWA"
+        set action accept
+        set schedule "always"
+        set service "HTTPS"
+    next
+    edit 201610
+        set name "Wan 2 Lan SMTP"
+        set srcintf "virtual-wan-link"
+        set dstintf "s.11.lan"
+        set srcaddr "all"
+        set dstaddr "vip.smtp"
+        set action accept
+        set schedule "always"
+        set service "SMTP"
+    next
+end

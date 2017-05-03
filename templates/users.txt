@@ -1,0 +1,149 @@
+config user ldap
+    edit "s.ldap1"
+        set server "[NetLan10]"
+        set cnid "SamAccountName"
+        set dn "dc=[Trigram],dc=grp"
+        set type regular
+        set username "CN=svcldapfortinet,OU=Services,OU=Accounts,OU=LGC,DC=[Trigram],DC=grp"
+        set password ENC IHRvb+D8lsjINvD7/61cmdOLnTPizHJuf7a8Zs5vPSY64Ts182cmWHleosN7Sgnrg56WYflIokNmxeCOgpcPWkMAJUrC3p9Q578/arjCmAbGvp9yOXUh6+00+CuLTSZaFUMZ9e5pnzt3cWLrdOxAqYtp9Xr/tKdgOWl95OYBg/MBjZfqRvnJuDcTf1cIn6cNB3AXZw==
+        set password-expiry-warning enable
+        set password-renewal enable
+    next
+    edit "s.root.ldap"
+        set server "[NetLan10]"
+        set cnid "userPrincipalName"
+        set dn "dc=[Trigram],dc=grp"
+        set type regular
+        set username "CN=SvcLdapFortinet,OU=Services,OU=Accounts,OU=LGC,DC=[Trigram],DC=grp"
+        set password ENC IHRvb+D8lsjINvD7/61cmdOLnTPizHJuf7a8Zs5vPSY64Ts182cmWHleosN7Sgnrg56WYflIokNmxeCOgpcPWkMAJUrC3p9Q578/arjCmAbGvp9yOXUh6+00+CuLTSZaFUMZ9e5pnzt3cWLrdOxAqYtp9Xr/tKdgOWl95OYBg/MBjZfqRvnJuDcTf1cIn6cNB3AXZw==
+        set password-expiry-warning enable
+        set password-renewal enable
+    next
+end
+config user group
+    edit "SSO_Guest_Users"
+    next
+    edit "Guest-group"
+        set member "guest"
+    next
+    edit "s.vpnusers"
+        set member "s.ldap1"
+        config match
+            edit 1
+                set server-name "s.ldap1"
+                set group-name "CN=gs-VpnUsers,OU=Accounts,OU=Groups,OU=[Trigram],DC=[Trigram],DC=grp"
+            next
+        end
+    next
+    edit "s.domainadmins"
+        set member "s.root.ldap"
+        config match
+            edit 1
+                set server-name "s.root.ldap"
+                set group-name "CN=Domain Admins,CN=Users,DC=[Trigram],DC=grp"
+            next
+        end
+    next
+end
+
+config system admin
+    edit "admin"
+        set trusthost1 10.0.0.0 255.0.0.0
+        set trusthost2 212.166.55.176 255.255.255.240
+        set trusthost3 212.166.55.144 255.255.255.240
+        set accprofile "super_admin"
+        set vdom "root"
+        set ssh-public-key1 "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAgEAvr0PfolMJOBCzGsGTXcLurdY4k+fKgvOJW3gRXBmac5a5DoylVAlwVBcYxtbp60GX6Z1Cv8G3DT9AZt9KFgedf4XZL+deXCvyGhjPPoWrwS+A2yefPuyDW0lXUVqsDgClKsrntKJr8Y13JPQ6CrjcIDfCWI2G4vr9O2YkUVGS05nCq9ALWIOto1bJCz9fLy1eJyiE0Su/ZQM6wkc+C2AzQx523Xv9m2wTOoHTJV06dQzHNfdNB53zMVVRY6pe1QqDLSV/+GNndECmxOmD7u7TBRG+8Gm3QstsgREbx/R4qVKawaBtvVpu+R4AaHXFu2onfT/8QHbUvpgchz9cpfiGSO2L50EwP3M10iFSOEQY5DUD8I2VFXr7TIL/6ukkCaJvUPpRfAhqDjefGPjaMHa8x5QzWynquro8t7V1J9E3E4j17pi55wRHhVo3CT+4pBL2uyYFM/C/sUYA6Xxkc9WljIquy2IyKAljBMe8JspJuGWU9Wn+92O/H6cdiqAajgIrJsv1qPtpiW8I07D+ALC6adMubTMVKAeacltUw57wWwnL4A5Z69T3epydpQWvArjJA4HbjCrjivz3qAh267VIltUTkZPOyZU9FlPwFWot1oM9IsS4QKaD/vxCKAzoPNOomynS77a/gAH5QY/BQS0qXWRtiTMLzWNszvlbalaX2E= Main Key"
+        unset ssh-public-key2
+        unset ssh-public-key3
+        config dashboard
+            edit 1
+                set column 1
+            next
+            edit 6
+                set widget-type alert
+                set column 1
+                set top-n 10
+                set show-fgd-alert enable
+            next
+            edit 2
+                set widget-type licinfo
+                set column 1
+            next
+            edit 9
+                set widget-type analytics
+                set column 1
+            next
+            edit 4
+                set widget-type sysres
+                set column 2
+                set time-period 10
+                set view-type historical
+            next
+            edit 3
+                set widget-type jsconsole
+                set column 2
+            next
+            edit 7
+                set widget-type tr-history
+                set column 2
+                set interface "wan2"
+                set refresh enable
+            next
+            edit 8
+                set widget-type tr-history
+                set column 2
+                set interface "wan1"
+                set refresh enable
+                set status close
+            next
+        end
+    next
+    edit "BACKUP_USER"
+        set trusthost1 10.76.1.24 255.255.255.255
+        set accprofile "super_admin"
+        set vdom "root"
+        set password ENC AK1NK6pbdD9RR94X5BjapM8/ekSawjsLAE+CAUNUbR88wg=
+    next
+    edit "domain admins"
+        set remote-auth enable
+        set accprofile "super_admin"
+        set vdom "root"
+        config dashboard
+            edit 8
+                set widget-type tr-history
+                set column 1
+                set interface "wan1"
+                set refresh enable
+            next
+            edit 7
+                set widget-type tr-history
+                set column 2
+                set interface "wan2"
+                set refresh enable
+            next
+            edit 1
+                set column 1
+            next
+            edit 2
+                set widget-type licinfo
+                set column 1
+            next
+            edit 3
+                set widget-type jsconsole
+                set column 1
+            next
+            edit 4
+                set widget-type sysres
+                set column 2
+            next
+            edit 6
+                set widget-type alert
+                set column 2
+                set top-n 10
+            next
+        end
+        set wildcard enable
+        set remote-group "s.domainadmins"
+    next
+end

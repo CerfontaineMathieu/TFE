@@ -1,0 +1,31 @@
+config vpn ssl web portal
+    edit "full-access"
+        set tunnel-mode enable
+        set web-mode enable
+        set ip-pools "s.sslvpn"
+        set split-tunneling-routing-address "s.lan" "s.mgmt" "s.voice"
+        config bookmark-group
+            edit "gui-bookmarks"
+            next
+        end
+    next
+    edit "web-access"
+        set web-mode enable
+    next
+    edit "tunnel-access"
+        set tunnel-mode enable
+        set ipv6-tunnel-mode enable
+        set ip-pools "SSLVPN_TUNNEL_ADDR1"
+        set ipv6-pools "SSLVPN_TUNNEL_IPv6_ADDR1"
+    next
+end
+config vpn ssl settings
+    set servercert "Fortinet_Factory"
+    set tunnel-ip-pools "s.sslvpn"
+    set dns-server1 [NetLan10]
+    set port 82
+    set source-interface "any"
+    set source-address "all"
+    set source-address6 "all"
+    set default-portal "full-access"
+end

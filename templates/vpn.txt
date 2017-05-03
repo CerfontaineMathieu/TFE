@@ -1,0 +1,36 @@
+config vpn ipsec phase1-interface
+    edit "s.vpn2.lgc"
+        set interface [WAN2]
+        set proposal aes256-sha256
+        set localid "ipsecvpn.limelogic.be"
+        set localid-type fqdn
+        set dhgrp 5
+        set remote-gw 212.166.55.146
+        set psksecret ENC IHRvb1/Rf7/TcRvCj0ijjNnopqKRhpzs1rCEmv3B/a3x8znj0m6IGKCpMu7Ol7XxFWXQrs0WFKEjazY0vq1wprBaCcTsZG7BFdcBE82G+l0PucY5IfnYJyu17e6715vSSSmu3H5In9dR1TosAgdrN3xdrUS6vDeOTsAtVk4xlElejp/0d/jhKwUYJxTqhG36lUaLDw==
+    next
+    edit "s.vpn1.lgc"
+        set interface [WAN1]
+        set proposal aes256-sha256
+        set localid "ipsecvpn.limelogic.be"
+        set localid-type fqdn
+        set dhgrp 5
+        set remote-gw 212.166.55.178
+        set psksecret ENC IHRvb1/Rf7/TcRvCj0ijjNnopqKRhpzs1rCEmv3B/a3x8znj0m6IGKCpMu7Ol7XxFWXQrs0WFKEjazY0vq1wprBaCcTsZG7BFdcBE82G+l0PucY5IfnYJyu17e6715vSSSmu3H5In9dR1TosAgdrN3xdrUS6vDeOTsAtVk4xlElejp/0d/jhKwUYJxTqhG36lUaLDw==
+    next
+end
+config vpn ipsec phase2-interface
+    edit "s.vpn2.lgc"
+        set phase1name "s.vpn2.lgc"
+        set proposal aes256-sha256
+        set dhgrp 5
+        set auto-negotiate enable
+        set keylifeseconds 28800
+    next
+    edit "s.vpn1.lgc"
+        set phase1name "s.vpn1.lgc"
+        set proposal aes256-sha256
+        set dhgrp 5
+        set auto-negotiate enable
+        set keylifeseconds 28800
+    next
+end

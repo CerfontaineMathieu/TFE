@@ -1,0 +1,42 @@
+config vpn ipsec phase1-interface
+    edit "vpn1.[trigram]"
+        set interface "wan1"
+        set proposal aes256-sha256
+        set localid "ipsecvpn.limelogic.be"
+        set localid-type fqdn
+        set dhgrp 5
+        set remote-gw [NetWAN]
+        set psksecret ENC AFM5/L9j7g1vfvuNgUg4sNJq0ceSizA6rJZxtpAzG8HnqfrQK5gQ3Wm23x6JOki4e0rEHKxaSD3lqXVes+YX/2C6zOzy8iuvp7yczxtLLKwB7E01qDDmOYMMOUGbNkhu0PU3cJO67lZCd/zirUy3hKgJWQns6wz3mwBdJmwdDnbQ6OADjf/BA+Sbi9/dHzM1EIRwjA==
+    next
+end
+config vpn ipsec phase1-interface
+    edit "vpn2.[trigram]"
+        set interface "wan2"
+        set proposal aes256-sha256
+        set localid "ipsecvpn.limelogic.be"
+        set localid-type fqdn
+        set dhgrp 5
+        set remote-gw [NetWAN]
+        set psksecret ENC AFM5/L9j7g1vfvuNgUg4sNJq0ceSizA6rJZxtpAzG8HnqfrQK5gQ3Wm23x6JOki4e0rEHKxaSD3lqXVes+YX/2C6zOzy8iuvp7yczxtLLKwB7E01qDDmOYMMOUGbNkhu0PU3cJO67lZCd/zirUy3hKgJWQns6wz3mwBdJmwdDnbQ6OADjf/BA+Sbi9/dHzM1EIRwjA==
+    next
+end
+config vpn ipsec phase2-interface
+    edit "vpn1.[trigram]"
+        set phase1name "vpn1.[trigram]"
+        set proposal aes256-sha256
+        set dhgrp 5
+        set keepalive enable
+        set auto-negotiate enable
+        set keylifeseconds 28800
+    next
+end
+config vpn ipsec phase2-interface
+    edit "vpn2.[trigram]"
+        set phase1name "vpn2.[trigram]"
+        set proposal aes256-sha256
+        set dhgrp 5
+        set keepalive enable
+        set auto-negotiate enable
+        set keylifeseconds 28800
+    next
+end

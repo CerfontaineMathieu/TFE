@@ -1,0 +1,26 @@
+config firewall vip
+    edit "s.nod32"
+        set extip 95.182.158.210
+        set extintf "any"
+        set portforward enable
+        set mappedip "10.3.226.13"
+        set extport 3128
+        set mappedport 3128
+    next
+    edit "vip.OWA"
+        set extip 95.182.158.210
+        set extintf "wan1"
+        set portforward enable
+        set mappedip "10.3.226.12"
+        set extport 443
+        set mappedport 443
+    next
+    edit "vip.smtp"
+        set extip 95.182.158.210
+        set extintf "wan1"
+        set portforward enable
+        set mappedip "10.3.226.9"
+        set extport 25
+        set mappedport 25
+      next
+end

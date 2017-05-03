@@ -1,0 +1,38 @@
+config system global
+    set admintimeout 480
+	set hostname "frw[trigram]"
+	set timezone 28
+	set admin-scp enable
+end
+config system ntp
+    set ntpsync enable
+    set type custom
+    set syncinterval 60
+    config ntpserver
+        edit 1
+            set server "[NetLan10]"
+        next
+    end
+    set source-ip [NetLan0]
+end
+config system dns
+    set primary [NetLan10]
+    set secondary [NetLGC10]
+    set domain "[trigram].grp"
+    set source-ip [NetLan0]
+end
+config system snmp sysinfo
+    set status enable
+    set description "frw[trigram]"
+end
+config system snmp community
+    edit 1
+        set name "356Verue"
+        config hosts
+            edit 1
+                set ip [NetLan8] [NetLanMask]
+            next
+        end
+        set events cpu-high mem-low log-full intf-ip vpn-tun-up vpn-tun-down ha-switch ha-hb-failure ips-signature ips-anomaly av-virus av-oversize av-pattern av-fragmented fm-if-change bgp-established bgp-backward-transition ha-member-up ha-member-down ent-conf-change av-conserve av-bypass av-oversize-passed av-oversize-blocked ips-pkg-update ips-fail-open faz-disconnect wc-ap-up wc-ap-down fswctl-session-up fswctl-session-down device-new
+    next
+end

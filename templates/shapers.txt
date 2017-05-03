@@ -1,0 +1,57 @@
+config firewall shaper traffic-shaper
+    edit "s.low.limited"
+        set guaranteed-bandwidth 16
+        set maximum-bandwidth 4096
+        set priority low
+    next
+    edit "s.low"
+        set guaranteed-bandwidth 16
+        set maximum-bandwidth 16776000
+        set priority low
+    next
+    edit "s.medium.limited"
+        set guaranteed-bandwidth 16
+        set maximum-bandwidth 4096
+        set priority medium
+    next
+    edit "s.medium"
+        set guaranteed-bandwidth 16
+        set maximum-bandwidth 16776000
+        set priority medium
+    next
+    edit "s.high.limited"
+        set guaranteed-bandwidth 16
+        set maximum-bandwidth 4096
+    next
+    edit "s.high"
+        set guaranteed-bandwidth 16
+        set maximum-bandwidth 16776000
+    next
+    edit "high-priority"
+        set maximum-bandwidth 1048576
+        set per-policy enable
+    next
+    edit "medium-priority"
+        set maximum-bandwidth 1048576
+        set priority medium
+        set per-policy enable
+    next
+    edit "low-priority"
+        set maximum-bandwidth 16776000
+        set priority low
+        set per-policy enable
+    next
+    edit "guarantee-100kbps"
+        set guaranteed-bandwidth 100
+        set maximum-bandwidth 1048576
+        set per-policy enable
+    next
+    edit "shared-1M-pipe"
+        set maximum-bandwidth 1024
+    next
+    edit "_shp.mail"
+        set guaranteed-bandwidth 40
+        set maximum-bandwidth 320
+        set priority low
+    next
+end
