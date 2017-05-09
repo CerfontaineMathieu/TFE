@@ -1,3 +1,2 @@
-Ajouter explication tests 802.1x sur le switch.
-Conclusion technique -> + récommandations pour travail future (interface web, déploiement d'OS et de VM).
+Rajouter des phrases de liaisons.
 Parler des modifications apportées dans YASC.
