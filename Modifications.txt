@@ -56,3 +56,5 @@ Il est aussi envisagé de créer un logiciel « maître d’orchestre » qui utilisera 
 6.6.1 IPSec et IKE, dernier para., 5ème ligne, remplacer " A noter que pour configurer l'algorithme de hashage et de chiffrement le firewall ne demande qu'une seule commande."
 6.7.3 Les traffic shapers, 1er para., 4ème ligne, "Avec les shapers, ON peut ..."
 6.8 En résumé, 1er para., dernière ligne, " ... utilisée à la base sur le switch HP."
+7.1 Conclusion technique, 3ème para., 2-3ème ligne, remplacer " ... l'ère numérique pour apparaître."
+7.1 Conclusion technique, 5ème para., 4ème ligne, remplacer " ... offrant ainsi non seulement un gain de temps sur les déploiements mais aussi une efficacité augmenter lors d'un dépannage réseau ou logicielle."
