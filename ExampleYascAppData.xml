@@ -1,0 +1,12 @@
+…
+<Data>
+	<General>…</General>
+	<Steps>
+		<Step>
+			<Name>Create Vlan 10</Name>
+			<Yasc>Switch-Vlan</Yasc>
+			<Param> … </Param>
+		</Step>
+	…
+	</Steps>
+</Data>
